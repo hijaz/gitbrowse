@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Octokit } from "octokit";
+import { useQuery } from "@tanstack/react-query";
+
+import "./App.css";
+
+const octokit = new Octokit({
+  auth: process.env.REACT_APP_GH_KEY,
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const { isLoading, isRefetching, isError, data, refetch } = useQuery(
+    ["joke"],
+    async () =>
+      await octokit.request("GET /repos/{owner}/{repo}", {
+        owner: "facebook",
+        repo: "react",
+      })
   );
+  console.log(process.env.REACT_APP_GH_KEY);
+  console.log({ isLoading, isRefetching, isError, data, refetch });
+
+  return <div className="App">{JSON.stringify(data)}</div>;
 }
 
 export default App;
