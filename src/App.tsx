@@ -12,7 +12,7 @@ function App() {
   const [repo] = useState("react");
   const [resource] = useState("contributors");
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     [`${owner}_${repo}_${resource}`],
     async () =>
       await octokit.request("GET /repos/{owner}/{repo}/{resource}", {
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="m-10">
-      <ContributorList data={data?.data} />
+      {isLoading ? "Loading..." : <ContributorList data={data?.data} />}
     </div>
   );
 }
