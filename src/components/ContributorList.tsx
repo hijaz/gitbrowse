@@ -19,6 +19,7 @@ const ContributorList = ({ data }: ContributorListDataType) => (
         <Link to={`/contributor/${contributor.login}`} key={contributor.login}>
           <li className="container flex flex-wrap justify-between items-center mx-auto py-2 px-4 w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
             <img
+              alt="contributors github avatar"
               className="w-10 h-10 rounded-full shadow-lg"
               src={contributor.avatar_url}
             />

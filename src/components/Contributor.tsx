@@ -7,7 +7,7 @@ const Contributor = () => {
   const octokit = useContext(ApiContext);
   let { contributorLogin } = useParams();
 
-  const { isLoading, isRefetching, isError, data, refetch } = useQuery(
+  const { data } = useQuery(
     [contributorLogin],
     async () =>
       await octokit.request("GET /users/{contributorLogin}", {

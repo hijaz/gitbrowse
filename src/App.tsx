@@ -8,11 +8,11 @@ import "./App.css";
 function App() {
   const octokit = useContext(ApiContext);
   //TODO: add form to make these editable
-  const [owner, setOwner] = useState("facebook");
-  const [repo, setRepo] = useState("react");
-  const [resource, setResource] = useState("contributors");
+  const [owner] = useState("facebook");
+  const [repo] = useState("react");
+  const [resource] = useState("contributors");
 
-  const { isLoading, isRefetching, isError, data, refetch } = useQuery(
+  const { data } = useQuery(
     [`${owner}_${repo}_${resource}`],
     async () =>
       await octokit.request("GET /repos/{owner}/{repo}/{resource}", {
