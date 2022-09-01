@@ -1,17 +1,12 @@
-import { useState } from "react";
-import { Octokit } from "octokit";
+import { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-
-import Navbar from "./components/Navbar";
+import { ApiContext } from "./index";
 import ContributorList from "./components/ContributorList";
 
 import "./App.css";
 
-const octokit = new Octokit({
-  auth: process.env.REACT_APP_GH_KEY,
-});
-
 function App() {
+  const octokit = useContext(ApiContext);
   //TODO: add form to make these editable
   const [owner, setOwner] = useState("facebook");
   const [repo, setRepo] = useState("react");
@@ -26,12 +21,9 @@ function App() {
         resource,
       })
   );
-  console.log(process.env.REACT_APP_GH_KEY);
-  console.log({ isLoading, isRefetching, isError, data, refetch });
 
   return (
     <div className="m-10">
-      <Navbar />
       <ContributorList data={data?.data} />
     </div>
   );
